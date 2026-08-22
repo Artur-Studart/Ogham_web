@@ -65,3 +65,38 @@ resumo final `0 falharam`.
 
 Veja o relatório `RELATORIO_ETAPA6.docx` para a justificativa detalhada de
 cada princípio SOLID e cada refatoração aplicada.
+
+## Etapa 7 — Testes com JUnit
+
+Foi adicionada uma nova regra de negócio, `ogham.service.HistoricalPeriodCalculator`,
+justamente por ser um cálculo simples (não acessa banco de dados nem
+arquivos), ideal para testes automatizados. Ela calcula a idade em anos e o
+período histórico (Século XIX/XX/XXI) de um documento a partir da sua data, e
+está integrada em `DocumentService.classificarPeriodo(...)` — a tela
+principal (`MainFrame`) agora mostra uma coluna "Período" usando esse cálculo.
+
+A pasta `test/ogham/service/` contém os testes JUnit 5:
+
+- `HistoricalPeriodCalculatorTest` — a funcionalidade de cálculo pedida na atividade.
+- `DocumentValidatorTest` — regra de validação (também não depende de banco).
+- `DocumentServiceTest` — testa a orquestração de negócio usando
+  `InMemoryDocumentRepository` no lugar do banco real, o que só é possível
+  graças à Inversão de Dependência aplicada na Etapa 6.
+
+### Como configurar e rodar os testes no NetBeans
+
+1. Abra o projeto no NetBeans e copie a pasta `test/ogham` para dentro da
+   pasta `test` do projeto (crie a pasta `test` como uma *Test Source Root*
+   em Propriedades do Projeto → Sources, se ainda não existir).
+2. Clique com o botão direito em qualquer classe de teste (ex.:
+   `HistoricalPeriodCalculatorTest`) → **Tools → Create/Update Tests**. Na
+   primeira vez, o NetBeans perguntará qual biblioteca de testes usar —
+   escolha **JUnit 5.x (Jupiter)**. O NetBeans baixa/registra a biblioteca
+   automaticamente, sem precisar configurar nada manualmente.
+3. Para rodar: botão direito na pasta `test` → **Test** (ou `Alt+F6`). O
+   NetBeans mostra um painel com os resultados (verde = passou, vermelho =
+   falhou) e um resumo no final.
+
+Veja `PLANO_DE_TESTES_ETAPA7.docx` para o plano de testes completo (unitários
+e manuais) cobrindo os requisitos já implementados e os planejados para o
+sistema web.

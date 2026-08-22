@@ -60,7 +60,7 @@ public class MainFrame extends JFrame {
         top.add(btnSearch);
         add(top, BorderLayout.NORTH);
 
-        model = new DefaultTableModel(new Object[]{"ID", "Título", "Autor", "Tipo", "Data", "Arquivo"}, 0) {
+        model = new DefaultTableModel(new Object[]{"ID", "Título", "Autor", "Tipo", "Data", "Período", "Arquivo"}, 0) {
             @Override
             public boolean isCellEditable(int r, int c) { return false; }
         };
@@ -89,7 +89,8 @@ public class MainFrame extends JFrame {
             documentosExibidos.clear();
             for (Document d : lista) {
                 documentosExibidos.put(d.getId(), d);
-                model.addRow(new Object[]{d.getId(), d.getTitulo(), d.getAutor(), d.getTipo(), d.getData(), d.getArquivoPath()});
+                model.addRow(new Object[]{d.getId(), d.getTitulo(), d.getAutor(), d.getTipo(), d.getData(),
+                        service.classificarPeriodo(d), d.getArquivoPath()});
             }
         } catch (RepositoryException e) {
             JOptionPane.showMessageDialog(this, "Erro ao acessar o banco de dados: " + e.getMessage(),

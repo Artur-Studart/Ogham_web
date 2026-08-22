@@ -32,6 +32,7 @@ public class DocumentService {
     private final DocumentRepository repository;
     private final FileStorageService fileStorage;
     private final DocumentValidator validator;
+    private final HistoricalPeriodCalculator periodCalculator;
 
     public DocumentService(DocumentRepository repository, FileStorageService fileStorage) {
         this(repository, fileStorage, new DocumentValidator());
@@ -42,6 +43,11 @@ public class DocumentService {
         this.repository = repository;
         this.fileStorage = fileStorage;
         this.validator = validator;
+        // HistoricalPeriodCalculator não tem dependências externas (não acessa banco
+        // nem arquivos), por isso pode ser instanciada diretamente aqui, diferente de
+        // DocumentRepository/FileStorageService, que são injetadas por dependerem de
+        // infraestrutura externa (DIP).
+        this.periodCalculator = new HistoricalPeriodCalculator();
     }
 
     public List<Document> listarTodos() {
@@ -89,5 +95,19 @@ public class DocumentService {
      */
     public Optional<String> baixarArquivo(Document documento) {
         return fileStorage.copiarParaDownload(documento.getArquivoPath());
+    }
+
+    /**
+     * Classifica o período histórico do documento (ex.: "Século XIX ou anterior",
+     * "Século XX", "Século XXI"), a partir de sua data.
+     *
+     * @return o período, ou "Data inválida" se o documento não tiver uma data em formato reconhecível
+     */
+    public String classificarPeriodo(Document documento) {
+        try {
+            return periodCalculator.classificarPeriodo(documento.getData());
+        } catch (IllegalArgumentException e) {
+            return "Data inválida";
+        }
     }
 }
