@@ -13,9 +13,12 @@ public class DocumentService {
     public List<Document> listarTodos() { return repository.listarTodos(); }
     public List<Document> pesquisar(String termo) { return termo == null || termo.isBlank() ? repository.listarTodos() : repository.pesquisar(termo); }
     public Optional<Document> buscarPorId(int id) { return repository.buscarPorId(id); }
+    public void validarDados(String titulo, String tipo) {
+        if (titulo == null || titulo.isBlank()) throw new IllegalArgumentException("Título é obrigatório.");
+        if (!"PDF".equals(tipo) && !"JPEG".equals(tipo)) throw new IllegalArgumentException("Tipo deve ser PDF ou JPEG.");
+    }
     public Document inserir(Document d) {
-        if (d.titulo() == null || d.titulo().isBlank()) throw new IllegalArgumentException("Título é obrigatório.");
-        if (!"PDF".equals(d.tipo()) && !"JPEG".equals(d.tipo())) throw new IllegalArgumentException("Tipo deve ser PDF ou JPEG.");
+        validarDados(d.titulo(), d.tipo());
         if (d.arquivoPath() == null || d.arquivoPath().isBlank()) throw new IllegalArgumentException("Arquivo é obrigatório.");
         return repository.inserir(d);
     }
