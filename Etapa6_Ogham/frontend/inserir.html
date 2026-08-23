@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Ogham - Inserir documento</title>
+  <link rel="stylesheet" href="css/estilo.css" />
+</head>
+<body data-pagina="inserir">
+  <header class="topo">
+    <div class="marca">🪶 Ogham<span>.</span></div>
+    <nav class="principal">
+      <a href="index.html" data-pagina="inicio">Início</a>
+      <a href="inserir.html" data-pagina="inserir">Inserir documento</a>
+      <a href="#" id="link-sessao" data-pagina="login">Login admin</a>
+    </nav>
+  </header>
+
+  <main>
+    <div class="cartao" id="cartao-acesso-negado" hidden>
+      <h1>Acesso restrito</h1>
+      <p class="subtitulo">Esta página é só para administradores. Faça login para continuar.</p>
+      <a class="botao" href="login.html">Ir para o login</a>
+    </div>
+
+    <div class="cartao" id="cartao-formulario" hidden>
+      <h1>Inserir novo documento</h1>
+      <p class="subtitulo">Os campos marcados com <span class="obrigatorio">*</span> são obrigatórios — as mesmas regras aplicadas em <code>ogham.service.DocumentValidator</code> no sistema desktop.</p>
+
+      <div class="caixa-alerta sucesso" id="alerta-sucesso" hidden></div>
+
+      <form id="form-inserir" novalidate>
+        <div class="campo">
+          <label for="titulo">Título <span class="obrigatorio">*</span></label>
+          <input type="text" id="titulo" name="titulo" />
+          <div class="mensagem-erro-campo" id="erro-titulo"></div>
+        </div>
+
+        <div class="campo">
+          <label for="autor">Autor</label>
+          <input type="text" id="autor" name="autor" />
+        </div>
+
+        <div class="campo">
+          <label for="tipo">Tipo <span class="obrigatorio">*</span></label>
+          <select id="tipo" name="tipo">
+            <option value="">Selecione...</option>
+            <option value="PDF">PDF</option>
+            <option value="JPEG">JPEG</option>
+          </select>
+          <div class="mensagem-erro-campo" id="erro-tipo"></div>
+        </div>
+
+        <div class="campo">
+          <label for="data">Data do documento</label>
+          <input type="date" id="data" name="data" />
+        </div>
+
+        <div class="campo">
+          <label for="arquivo">Arquivo <span class="obrigatorio">*</span></label>
+          <input type="file" id="arquivo" name="arquivo" accept=".pdf,.jpg,.jpeg" />
+          <div class="mensagem-erro-campo" id="erro-arquivo"></div>
+        </div>
+
+        <div class="campo">
+          <label for="tags">Tags (separadas por vírgula)</label>
+          <input type="text" id="tags" name="tags" placeholder="ex.: carta, familia, seculo XIX" />
+        </div>
+
+        <button type="submit" class="botao">Salvar</button>
+      </form>
+    </div>
+  </main>
+
+  <footer class="rodape">
+    Ogham — Projeto Integrador Senac · Etapa 8 (front-end, sem back-end ainda)
+  </footer>
+
+  <script src="js/documentos.js"></script>
+  <script src="js/ui-comum.js"></script>
+  <script src="js/validacao-inserir.js"></script>
+</body>
+</html>

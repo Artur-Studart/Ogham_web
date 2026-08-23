@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Ogham - Login administrador</title>
+  <link rel="stylesheet" href="css/estilo.css" />
+</head>
+<body data-pagina="login">
+  <header class="topo">
+    <div class="marca">🪶 Ogham<span>.</span></div>
+    <nav class="principal">
+      <a href="index.html" data-pagina="inicio">Início</a>
+      <a href="inserir.html" data-pagina="inserir">Inserir documento</a>
+      <a href="#" id="link-sessao" data-pagina="login">Login admin</a>
+    </nav>
+  </header>
+
+  <main style="max-width: 480px;">
+    <div class="cartao">
+      <h1>Login do administrador</h1>
+      <p class="subtitulo">Substitui a antiga chave fixa <code>oghamadmin</code> do sistema desktop por um login web.</p>
+
+      <div class="caixa-alerta erro" id="alerta-erro" hidden></div>
+
+      <form id="form-login" novalidate>
+        <div class="campo">
+          <label for="usuario">Usuário <span class="obrigatorio">*</span></label>
+          <input type="text" id="usuario" name="usuario" autocomplete="username" />
+          <div class="mensagem-erro-campo" id="erro-usuario"></div>
+        </div>
+
+        <div class="campo">
+          <label for="senha">Senha <span class="obrigatorio">*</span></label>
+          <input type="password" id="senha" name="senha" autocomplete="current-password" />
+          <div class="mensagem-erro-campo" id="erro-senha"></div>
+        </div>
+
+        <button type="submit" class="botao">Entrar</button>
+      </form>
+
+      <p class="subtitulo" style="margin-top:16px; font-size:0.82rem;">
+        Demonstração desta etapa (sem back-end): usuário <code>admin</code>, senha <code>ogham123</code>.
+      </p>
+    </div>
+  </main>
+
+  <footer class="rodape">
+    Ogham — Projeto Integrador Senac · Etapa 8 (front-end, sem back-end ainda)
+  </footer>
+
+  <script src="js/documentos.js"></script>
+  <script src="js/ui-comum.js"></script>
+  <script src="js/validacao-login.js"></script>
+</body>
+</html>

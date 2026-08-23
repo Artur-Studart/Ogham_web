@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Ogham - Detalhe do documento</title>
+  <link rel="stylesheet" href="css/estilo.css" />
+</head>
+<body data-pagina="detalhe">
+  <header class="topo">
+    <div class="marca">🪶 Ogham<span>.</span></div>
+    <nav class="principal">
+      <a href="index.html" data-pagina="inicio">Início</a>
+      <a href="inserir.html" data-pagina="inserir">Inserir documento</a>
+      <a href="#" id="link-sessao" data-pagina="login">Login admin</a>
+    </nav>
+  </header>
+
+  <main>
+    <div class="cartao" id="cartao-nao-encontrado" hidden>
+      <h1>Documento não encontrado</h1>
+      <p class="subtitulo">O documento solicitado não existe ou foi removido.</p>
+      <a class="botao secundario" href="index.html">Voltar para a listagem</a>
+    </div>
+
+    <div class="cartao" id="cartao-detalhe" hidden>
+      <h1 id="titulo-documento">-</h1>
+      <p class="subtitulo" id="subtitulo-documento"></p>
+
+      <dl class="lista-metadados">
+        <dt>Autor</dt>
+        <dd id="valor-autor">-</dd>
+
+        <dt>Tipo</dt>
+        <dd id="valor-tipo">-</dd>
+
+        <dt>Data</dt>
+        <dd id="valor-data">-</dd>
+
+        <dt>Período histórico</dt>
+        <dd id="valor-periodo">-</dd>
+
+        <dt>Tags</dt>
+        <dd id="valor-tags">-</dd>
+
+        <dt>Arquivo</dt>
+        <dd id="valor-arquivo">-</dd>
+      </dl>
+
+      <div class="acoes">
+        <button class="botao" id="botao-download">Download</button>
+        <a class="botao secundario" href="index.html">Voltar para a listagem</a>
+      </div>
+    </div>
+  </main>
+
+  <footer class="rodape">
+    Ogham — Projeto Integrador Senac · Etapa 8 (front-end, sem back-end ainda)
+  </footer>
+
+  <script src="js/documentos.js"></script>
+  <script src="js/ui-comum.js"></script>
+  <script src="js/pagina-detalhe.js"></script>
+</body>
+</html>
