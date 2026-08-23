@@ -20,20 +20,17 @@ public class DocumentController {
     private final DocumentService service;
     private final FileStorageService storage;
     public DocumentController(DocumentService service, FileStorageService storage) { this.service = service; this.storage = storage; }
-
     @GetMapping public List<Document> listar(@RequestParam(required=false) String busca) { return service.pesquisar(busca); }
     @GetMapping("/{id}") public ResponseEntity<Document> buscar(@PathVariable int id) { return service.buscarPorId(id).map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build()); }
-
     @PostMapping(consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     public ResponseEntity<?> inserir(@RequestParam String titulo, @RequestParam(required=false) String autor,
         @RequestParam(required=false) String descricao, @RequestParam String tipo, @RequestParam(required=false) String data,
         @RequestParam(required=false) String tags, @RequestParam MultipartFile arquivo, jakarta.servlet.http.HttpSession session) throws IOException {
         if (session.getAttribute("ADMIN") == null) return ResponseEntity.status(401).body("Login de administrador necessário.");
+        service.validarDados(titulo, tipo);
         String nome = storage.salvar(arquivo, tipo);
-        Document salvo = service.inserir(new Document(null, titulo, autor, descricao, tipo, data, nome, tags));
-        return ResponseEntity.ok(salvo);
+        return ResponseEntity.ok(service.inserir(new Document(null, titulo, autor, descricao, tipo, data, nome, tags)));
     }
-
     @GetMapping("/{id}/download") public ResponseEntity<?> download(@PathVariable int id) throws IOException {
         var doc = service.buscarPorId(id);
         if (doc.isEmpty()) return ResponseEntity.notFound().build();
